@@ -1,11 +1,12 @@
 const userSchema = require("../schema/userSchema");
 const emailValidator = require('email-validator');
 const blogSchema = require("../schema/blogSchema");
+const cloudinary = require('cloudinary');
 
 const userController = {
     register : async (req, res) => {
         try {
-            const {name, password, email} = req.body;
+            const {name, password, email, avatar} = req.body;
 
             if(!name || !password || !email){
                 return res.status(400).json({
@@ -14,9 +15,9 @@ const userController = {
                 })
             }
 
-            let avatar = {
-                public_id : "sample_id",
-                url : "sample_url"
+            let image = {
+                public_id : "NONE",
+                url : "https://res.cloudinary.com/anshumxn09/image/upload/v1678185432/Blog/rrlgunravwoq1idxm61d.jpg"
             }
 
             let user = await userSchema.findOne({email});
@@ -41,7 +42,16 @@ const userController = {
                 })
             }
 
-            user = new userSchema({name, email, password , avatar
+            if(avatar){
+                const myImage = await cloudinary.v2.uploader.upload(avatar, {
+                    folder : "Blog_Media"
+                })
+
+                image.public_id = myImage.public_id;
+                image.url = myImage.secure_url;
+            }
+
+            user = new userSchema({name, email, password , avatar : image
             })
 
             await user.save(); 
@@ -329,11 +339,11 @@ const userController = {
     getAllUser : async (req, res) => {
         try {
 
-            const user = await userSchema.findById();
+            const users = await userSchema.find({});
 
             return res.status(200).json({
                 success :  true,
-                user
+                users
             })
 
         } catch (error) {

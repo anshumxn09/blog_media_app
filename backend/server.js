@@ -4,7 +4,14 @@ const connectionToDatabse = require('./config/database');
 const userRouter = require('./routes/userRouter');
 const cookieParser = require('cookie-parser');
 const blogRouter = require('./routes/blogRoutes');
+const cloudinary = require('cloudinary');
 const app = express();
+
+cloudinary.config({
+    cloud_name : "anshumxn09",
+    api_key : process.env.API_KEY,
+    api_secret : process.env.API_SECRET
+})
 
 app.use(express.json());
 app.use(cookieParser());
