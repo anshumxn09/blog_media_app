@@ -59,3 +59,15 @@ export const getAllUser = ()  => async (dispatch) => {
         dispatch({type : "ALL_USER_FAILURE", payload : error.response.data.message})
     }
 }
+
+export const logoutUser = ()  => async (dispatch) => {
+    try {
+        dispatch({type : "LOGOUT_REQUEST"})
+
+        const {data} = await axios.get("/api/logout");
+
+        dispatch({type : "LOGOUT_SUCCESS", payload : data.message})
+    } catch (error) {
+        dispatch({type : "LOGOUT_FAILURE", payload : error.response.data.message})
+    }
+}

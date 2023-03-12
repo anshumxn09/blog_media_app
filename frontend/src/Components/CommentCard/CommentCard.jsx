@@ -28,7 +28,7 @@ const CommentCard = ({imageUrl, name, comment, isUser, blogID}) => {
                 <Typography.Text className="ml-10 poppins">{name}</Typography.Text>
             </div>
             {
-                isUser && <Dropdown menu={{items,}} placement="bottomCenter" ><Button ><MoreOutlined/></Button></Dropdown>
+                isUser && <Dropdown menu={{items,}} placement="bottomCenter" ><Button style={{border : "none"}}><MoreOutlined/></Button></Dropdown>
             }
         </div>
         <Typography.Text className="poppins" type="secondary">{comment}</Typography.Text>

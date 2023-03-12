@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllBlogs } from '../Actions/blogActions';
-import { getAllUser } from '../Actions/userAction';
+import { getAllUser, loadUser } from '../Actions/userAction';
 import './../styles/Home.css';
 import BlogCard from './BlogCard/BlogCard';
 import UserProfile from './UserProfile/UserProfile';
@@ -16,6 +16,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getAllUser());
     dispatch(getAllBlogs());
+    dispatch(loadUser());
   }, [dispatch])
 
   useEffect(() => {

@@ -214,7 +214,7 @@ const userController = {
     getMe : async (req, res) => {
         try {
             
-            const user = await userSchema.findById(req.user._id);
+            const user = await userSchema.findById(req.user._id).populate("followers followings");
 
             return res.status(200).json({
                 success :  true,
@@ -305,11 +305,9 @@ const userController = {
             const user = await userSchema.findById(req.user._id);
             
             let blogs = []
-            // console.log(user.favourites);
 
             for(let i=0; i<user.favourites.length; i++){
                 const blog = await blogSchema.findById(user.favourites[i]).populate("owner likes comments.user");
-                console.log(blog);
                 blogs.push(blog);
             }
 
