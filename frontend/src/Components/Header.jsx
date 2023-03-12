@@ -1,5 +1,5 @@
 import { HomeFilled } from '@ant-design/icons';
-import { PlusOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons/lib/icons';
+import { HeartFilled, PlusOutlined, SearchOutlined, StarFilled, UserOutlined } from '@ant-design/icons/lib/icons';
 import { Col, Row } from 'antd';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
@@ -18,6 +18,11 @@ const Header = () => {
         <Col>
             <Link to={"/create/blog"} onClick={() => setPath("/create/blog")}>
                 <PlusOutlined className={`home-icon ${path === "/create/blog" && "circleit"}`}/>
+            </Link>
+        </Col>
+        <Col>
+            <Link to={"/favourites"} onClick={() => setPath("/favourites")}>
+                <StarFilled className={`home-icon ${path === "/favourites" && "circleit"}`}/>
             </Link>
         </Col>
         <Col>

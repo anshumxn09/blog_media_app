@@ -63,3 +63,17 @@ export const allUserReducer = createReducer({}, {
         state.message = action.payload;
     },
 })
+
+export const getFavourite = createReducer({}, {
+    GET_FAV_REQUEST : (state) => {
+        state.loading = true;
+    },
+    GET_FAV_SUCCESS : (state, action) => {
+        state.loading = false;
+        state.favs = action.payload;
+    },
+    GET_FAV_FAILURE : (state,action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+})

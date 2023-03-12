@@ -1,0 +1,17 @@
+.commentCard{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #1890ff;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}
+.commentTopNav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.commentProfile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

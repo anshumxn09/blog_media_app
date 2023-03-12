@@ -302,13 +302,20 @@ const userController = {
     getAllFav : async (req, res) => {
         try {
             
-            const user = await userSchema.findById(req.user._id).populate("favourites");
+            const user = await userSchema.findById(req.user._id);
+            
+            let blogs = []
+            // console.log(user.favourites);
 
-            const fav = user.favourites;
+            for(let i=0; i<user.favourites.length; i++){
+                const blog = await blogSchema.findById(user.favourites[i]).populate("owner likes comments.user");
+                console.log(blog);
+                blogs.push(blog);
+            }
 
             return res.status(200).json({
                 success :  true,
-                fav
+                fav : blogs
             })
 
         } catch (error) {
@@ -364,7 +371,7 @@ const userController = {
                 }
             }).sort({
                 dateCreated : -1
-            })
+            }).populate("likes comments.user owner");
 
             return res.status(200).json({
                 success :  true,
