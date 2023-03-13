@@ -147,11 +147,19 @@ const userController = {
     },
     updateProfile : async (req, res) => {
         try {
+            const user = await userSchema.findById(req.user._id);
             const {name, avatar} = req.body;
+            user.name = name;
+            if(avatar){
+                if(user.avatar.public_id !== "sample_id"){
+                    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+                }
+                const myImage = await cloudinary.v2.uploader.upload(avatar);
+                user.avatar.public_id = myImage.public_id;
+                user.avatar.url = myImage.secure_url;
+            }
 
-            await userSchema.findByIdAndUpdate(req.user._id, {
-                name, avatar
-            })
+            await user.save();
 
             return res.status(200).json({
                 success :  true,
@@ -172,7 +180,7 @@ const userController = {
             if(!oldpass || !newpass){
                 return res.status(400).json({
                     success :  true,
-                    message  : "oops some fiedls are missing"
+                    message  : "oops some fields are missing"
                 })
             }
 

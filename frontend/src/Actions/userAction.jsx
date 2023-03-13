@@ -71,3 +71,41 @@ export const logoutUser = ()  => async (dispatch) => {
         dispatch({type : "LOGOUT_FAILURE", payload : error.response.data.message})
     }
 }
+
+export const updateUser = (name, avatar)  => async (dispatch) => {
+    try {
+        dispatch({type : "EDIT_PROFILE_REQUEST"})
+
+        const {data} = await axios.put("/api/edit/profile", {
+            name, avatar
+        }, {
+            headers : {
+                'Content-Type' : "application/json"
+            },
+            withCredentials : "true"
+        });
+
+        dispatch({type : "EDIT_PROFILE_SUCCESS", payload : data.message})
+    } catch (error) {
+        dispatch({type : "EDIT_PROFILE_FAILURE", payload : error.response.data.message})
+    }
+}
+
+export const updateMyPassword = (oldpass, newpass)  => async (dispatch) => {
+    try {
+        dispatch({type : "EDIT_PASSWORD_REQUEST"})
+        console.log(oldpass, newpass)
+        const {data} = await axios.put("/api/edit/password", {
+            oldpass, newpass
+        }, {
+            headers : {
+                'Content-Type' : "application/json"
+            },
+            withCredentials : "true"
+        });
+
+        dispatch({type : "EDIT_PASSWORD_SUCCESS", payload : data.message})
+    } catch (error) {
+        dispatch({type : "EDIT_PASSWORD_FAILURE", payload : error.response.data.message})
+    }
+}

@@ -52,6 +52,30 @@ export const likeReducer = createReducer({}, {
         state.message = action.payload;
     },
 
+    EDIT_PROFILE_REQUEST : (state) => {
+        state.loading = true;
+    },
+    EDIT_PROFILE_SUCCESS : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+    EDIT_PROFILE_FAILURE : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+
+    EDIT_PASSWORD_REQUEST : (state) => {
+        state.loading = true;
+    },
+    EDIT_PASSWORD_SUCCESS : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+    EDIT_PASSWORD_FAILURE : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+
     ADD_TO_FAVOURITE_REQUEST : (state) => {
         state.loading = true;
     },

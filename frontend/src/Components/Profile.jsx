@@ -30,7 +30,7 @@ const Profile = () => {
           </Col>
           <Col>
             <Typography.Title className='poppins text-center' level={3}>{user.name}</Typography.Title>
-            <Typography.Text type='secondary' className='poppins'>{user.email}</Typography.Text>
+            <Typography.Paragraph type='secondary' style={{marginBottom : "2px"}} className='poppins text-center'>{user.email}</Typography.Paragraph>
           </Col>
           <Col span={24} className="blue-border col-pad" style={{borderRadius : "20px", background : "#1890ff"}}>
             <Row justify={"space-around"} align="middle" gutter={[17, 10]} >
