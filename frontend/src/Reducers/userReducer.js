@@ -79,6 +79,21 @@ export const allUserReducer = createReducer({}, {
     },
 })
 
+export const getSearchUser = createReducer({}, {
+    SEARCH_USER_REQUEST : (state) => {
+        state.loading = true;
+    },
+    SEARCH_USER_SUCCESS : (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.blogs = action.payload.blogs;
+    },
+    SEARCH_USER_FAILURE : (state,action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+})
+
 export const getFavourite = createReducer({}, {
     GET_FAV_REQUEST : (state) => {
         state.loading = true;

@@ -1,11 +1,15 @@
 import { Avatar, Col, Modal, Row, Typography } from 'antd';
-import React, {useState} from 'react'
-import { useSelector } from 'react-redux';
+import React, {useEffect, useState} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { getMyBlogs } from '../Actions/blogActions';
+import { loadUser } from '../Actions/userAction';
 import '../styles/Profile.css';
+import PostSection from './PostSection';
 import Settings from './Settings';
 import UserProfile from './UserProfile/UserProfile';
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const {user} = useSelector(state => state.userReducer);
   const [isFollowerOpen, setIsFollowerOpen] = useState(false);
   const [isFollowingOpen, setIsFollowingOpen] = useState(false);
@@ -21,6 +25,12 @@ const Profile = () => {
   const handleCancelFollowing = () => {
     setIsFollowingOpen(false);
   };
+
+  useEffect(() => {
+    dispatch(loadUser());
+    dispatch(getMyBlogs());
+  }, [dispatch]);
+
   return (
     <Row className="h-100" justify={"center"} style={{padding : "20px"}}>
       <Col span={22}>
@@ -42,7 +52,7 @@ const Profile = () => {
                   <Modal title="FOLLOWERS" okButtonProps={{style : {display : "none"}}} cancelButtonProps={{style : {display : "none"}}} open={isFollowerOpen} onCancel={handleCancel}>
                       {
                         user  && user.followers.length > 0 ? user.followers.map((elem) => {
-                          return <UserProfile key={elem._id} imageUrl={elem.avatar.url} name={elem.name} />
+                          return <UserProfile id={elem._id}  key={elem._id} imageUrl={elem.avatar.url} name={elem.name} />
                         }) : <Typography.Title className='text-center uppercase poppins' level={3}>No Followers Yet</Typography.Title>
                       }
                 </Modal>
@@ -52,7 +62,7 @@ const Profile = () => {
                   <Modal title="FOLLOWINGS" okButtonProps={{style : {display : "none"}}} cancelButtonProps={{style : {display : "none"}}} open={isFollowingOpen} onCancel={handleCancelFollowing}>
                       {
                         user  && user.followings.length > 0 ? user.followings.map((elem) => {
-                          return <UserProfile key={elem._id} imageUrl={elem.avatar.url} name={elem.name} />
+                          return <UserProfile id={elem._id} key={elem._id} imageUrl={elem.avatar.url} name={elem.name} />
                         }) : <Typography.Title className='text-center uppercase poppins' level={3}>No Followings Yet</Typography.Title>
                       }
                 </Modal>
@@ -65,8 +75,8 @@ const Profile = () => {
         </Row>
       </Col>
 
-      <Col>
-
+      <Col span={23} style={{background : "whitesmoke", borderRadius : "20px", marginTop : "15px"}}>
+          <PostSection/>
       </Col>
     </Row>
   )

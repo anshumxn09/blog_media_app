@@ -15,6 +15,21 @@ export const getAllBlogs = createReducer({}, {
     },
 })
 
+export const myBlogs = createReducer({}, {
+    GET_MY_BLOGS_REQUEST : (state) => {
+        state.loading = true;
+    },
+    GET_MY_BLOGS_SUCCESS : (state, action) => {
+        state.loading = false;
+        state.blogs = action.payload;
+        state.error = false;
+    },
+    GET_MY_BLOGS_FAILURE : (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    },
+})
+
 export const likeReducer = createReducer({}, {
     LIKE_REQUEST : (state) => {
         state.loading = true;
@@ -84,6 +99,18 @@ export const likeReducer = createReducer({}, {
         state.message = action.payload;
     },
     ADD_TO_FAVOURITE_FAILURE : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+
+    FOLLOW_REQUEST : (state) => {
+        state.loading = true;
+    },
+    FOLLOW_SUCCESS : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+    FOLLOW_FAILURE : (state, action) => {
         state.loading = false;
         state.message = action.payload;
     },

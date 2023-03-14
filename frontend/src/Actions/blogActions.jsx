@@ -13,6 +13,19 @@ export const getAllBlogs = () => async (dispatch) => {
     }
 }
 
+export const getMyBlogs = () => async (dispatch) => {
+    try {
+        dispatch({type : "GET_MY_BLOGS_REQUEST"})
+
+        const {data} = await axios.get("/api/me/blogs");
+
+        dispatch({type : "GET_MY_BLOGS_SUCCESS", payload : data.blogs})
+
+    } catch (error) {
+        dispatch({type : "GET_MY_BLOGS_FAILURE", payload : error.response.data.message})
+    }
+}
+
 export const likeBlog = (id) => async (dispatch) => {
     try {
         dispatch({type : "LIKE_REQUEST"})
@@ -85,3 +98,4 @@ export const getAllFavourite = () => async (dispatch) => {
         dispatch({type : "GET_FAV_FAILURE", payload : error.response.data.message})
     }
 }
+

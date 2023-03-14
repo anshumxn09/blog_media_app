@@ -1,15 +1,15 @@
-import { CommentOutlined, EditFilled, HeartFilled, HeartOutlined, HighlightFilled, StarFilled, StarOutlined } from "@ant-design/icons";
-import { Button, Card, Form, Input, Modal, Typography } from "antd";
+import { CommentOutlined, EditFilled, HeartFilled, HeartOutlined, StarFilled, StarOutlined, MoreOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Button, Card, Dropdown, Form, Input, Modal, Typography } from "antd";
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToFavourite, commentBlog, getAllBlogs, getAllFavourite, likeBlog } from "../../Actions/blogActions";
-import { loadUser } from "../../Actions/userAction";
+import { addToFavourite, commentBlog, getAllBlogs, getAllFavourite, getMyBlogs, likeBlog } from "../../Actions/blogActions";
+import { loadSearchUser, loadUser } from "../../Actions/userAction";
 import "../../styles/BlogCard.css";
 import CommentCard from "../CommentCard/CommentCard";
 import UserProfile from "../UserProfile/UserProfile";
 
-const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=false }) => {
+const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=false, myProfile=false, searchUser="" }) => {
     const {user} = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
 
@@ -21,6 +21,15 @@ const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=f
     const likeHandler = async () =>{
         await dispatch(likeBlog(blogId));
         setLikeToggle(!likeToggle);
+
+        if(myProfile){
+            await dispatch(getMyBlogs());
+        }
+
+        if(searchUser){
+            await dispatch(loadSearchUser(searchUser));
+        }
+
         if(favPage){
             await dispatch(getAllBlogs());
             dispatch(getAllFavourite());
@@ -29,7 +38,15 @@ const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=f
 
     const handleComment = async (values) => {
         const {comment} = values;
-        await dispatch(commentBlog(blogId, comment))
+        await dispatch(commentBlog(blogId, comment));
+        if(myProfile){
+            await dispatch(getMyBlogs());
+        }
+
+        if(searchUser){
+            await dispatch(loadSearchUser(searchUser));
+        }
+
         if(favPage){
             await dispatch(getAllBlogs());
             dispatch(getAllFavourite());
@@ -40,6 +57,14 @@ const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=f
         setStarToggle(!starToggle);
         await dispatch(addToFavourite(blogId));
         await dispatch(loadUser());
+        if(myProfile){
+            await dispatch(getMyBlogs());
+        }
+
+        if(searchUser){
+            await dispatch(loadSearchUser(searchUser));
+        }
+        
         if(favPage){
             await dispatch(getAllBlogs());
             dispatch(getAllFavourite());
@@ -70,6 +95,14 @@ const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=f
         setLikeOpen(false);
     };
 
+    const items = [{
+        key : 1,
+        label : <Button style={{border : "none"}}> <EditFilled/> Edit</Button>
+    },{
+        key : 2,
+        label : <Button style={{border : "none"}}> <DeleteOutlined/> Delete</Button>
+    }
+]
     useEffect(() => {
         likes.forEach((elem) => {
             if(elem._id === user._id){
@@ -87,7 +120,7 @@ const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=f
 
   return (
     <Card className="card">
-      <Link>
+      <Link style={{display : 'flex', justifyItems : "space-between", alignItems : "center"}}>
         <div className="topHeaderBlog">
             <img
             src={owner.avatar.url}
@@ -96,6 +129,11 @@ const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=f
             />
             <Typography.Text className="ml-10 poppins" type="secondary">{owner.name}</Typography.Text>
         </div>
+        {
+            myProfile && <Dropdown menu={{items}} placement="bottomCenter">
+            <Button style={{border : "none"}}> <MoreOutlined /> </Button>
+        </Dropdown>
+        }
       </Link>
       <Typography.Title className="mt-10 poppins" level={3}>{title}</Typography.Title>
       <Typography.Text className="poppins"> {
@@ -107,7 +145,7 @@ const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=f
                 <div style={{height : "300px" ,overflowY : 'auto'}}>
                 {
                     likes && likes.length > 0 ? likes.map((elem) => {
-                        return <UserProfile key={elem._id} imageUrl={elem.avatar.url} name={elem.name}/>
+                        return <UserProfile id={elem._id} key={elem._id} imageUrl={elem.avatar.url} name={elem.name}/>
                     }) : <Typography.Text className="uppercase">No Likes Yet</Typography.Text>
                 }
                 </div>

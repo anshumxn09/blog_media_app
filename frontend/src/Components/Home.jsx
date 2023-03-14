@@ -9,6 +9,7 @@ import {toast} from 'react-toastify';
 
 const Home = () => { 
   const dispatch = useDispatch();
+  const {user} = useSelector(state => state.userReducer);
   const {users} = useSelector(state => state.allUserReducer);
   const {blogs} = useSelector(state => state.getAllBlogs);
   const {message} = useSelector(state => state.likeReducer);
@@ -31,7 +32,7 @@ const Home = () => {
       <div className="left flex-col">
         {
           users && users.map((elem) => {
-            return <UserProfile key={elem._id} imageUrl={elem.avatar.url} name={elem.name}/>
+            return elem._id !== user._id && <UserProfile id={elem._id} key={elem._id} imageUrl={elem.avatar.url} name={elem.name}/>
           })
         }
       </div>

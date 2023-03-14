@@ -8,6 +8,7 @@ userRouter.route("/login").post(userController.login)
 userRouter.route("/logout").get(userController.logout)
 
 userRouter.route("/me").get(isAuthenticated, userController.getMe)
+userRouter.route("/me/blogs").get(isAuthenticated, userController.getMyBlogs);
 
 userRouter.route("/users").get(isAuthenticated, userController.getAllUser);
 

@@ -48,6 +48,36 @@ export const loadUser = ()  => async (dispatch) => {
     }
 }
 
+export const loadSearchUser = (id)  => async (dispatch) => {
+    try {
+        dispatch({type : "SEARCH_USER_REQUEST"})
+
+        const {data} = await axios.get(`/api/user/${id}`);
+
+        const res = {
+            user : data.user,
+            blogs : data.blogs
+        }
+
+        dispatch({type : "SEARCH_USER_SUCCESS", payload : res})
+    } catch (error) {
+        dispatch({type : "SEARCH_USER_FAILURE", payload : error.response.data.message})
+    }
+}
+
+export const followUnfollow = (id)  => async (dispatch) => {
+    try {
+        dispatch({type : "FOLLOW_REQUEST"})
+
+        const {data} = await axios.put(`/api/user/${id}`);
+        
+        dispatch({type : "FOLLOW_SUCCESS", payload : data.message});
+
+    } catch (error) {
+        dispatch({type : "FOLLOW_FAILURE", payload : error.response.data.message})
+    }
+}
+
 export const getAllUser = ()  => async (dispatch) => {
     try {
         dispatch({type : "ALL_USER_REQUEST"})

@@ -222,7 +222,7 @@ const userController = {
     getMe : async (req, res) => {
         try {
             
-            const user = await userSchema.findById(req.user._id).populate("followers followings");
+            const user = await userSchema.findById(req.user._id).populate("followers followings blogs");
 
             return res.status(200).json({
                 success :  true,
@@ -253,9 +253,11 @@ const userController = {
 
             if(userToFollow.followers.includes(req.user._id)){
                 let index = userToFollow.followers.indexOf(req.user._id);
-
                 userToFollow.followers.splice(index, 1);
-                me.followings.splice(me.followings.indexOf(id), 1);
+
+                let followIndex = me.followings.indexOf(id);
+                me.followings.splice(followIndex,1);
+
                 message  = `unfollowed ${userToFollow.name}`;
             }else{
                 userToFollow.followers.push(req.user._id);
@@ -335,11 +337,18 @@ const userController = {
         try {
 
             const {id} = req.params;
-            const user = await userSchema.findById(id);
+            const user = await userSchema.findById(id).populate("followers followings");
+
+            let blogs = []
+            for(var i=0; i<user.blogs.length; i++){
+                const blog = await blogSchema.findById(user.blogs[i]).populate("likes comments.user owner");
+                blogs.push(blog);
+            }
 
             return res.status(200).json({
                 success :  true,
-                user
+                user,
+                blogs
             })
 
         } catch (error) {
@@ -352,7 +361,7 @@ const userController = {
     getAllUser : async (req, res) => {
         try {
 
-            const users = await userSchema.find({});
+            const users = await userSchema.find();
 
             return res.status(200).json({
                 success :  true,
@@ -378,6 +387,29 @@ const userController = {
             }).sort({
                 dateCreated : -1
             }).populate("likes comments.user owner");
+
+            return res.status(200).json({
+                success :  true,
+                blogs
+            })
+
+        } catch (error) {
+            return res.status(500).json({
+                success :  false,
+                message  : error.message
+            })
+        }
+    },
+    getMyBlogs : async (req, res) => {
+        try {
+
+            const user = await userSchema.findById(req.user._id);
+            
+            let blogs = []
+            for(var i=0; i<user.blogs.length; i++){
+                const getBlog = await blogSchema.findById(user.blogs[i]).populate("likes comments.user owner");
+                blogs.push(getBlog);
+            }
 
             return res.status(200).json({
                 success :  true,

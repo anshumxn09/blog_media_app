@@ -13,6 +13,7 @@ import Search from './Components/Search';
 import Profile from './Components/Profile';
 import Header from './Components/Header';
 import Favourites from './Components/Favourites';
+import SearchProfile from './Components/UserProfile/SearchProfile';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,10 @@ const App = () => {
 
         <Route path='/favourites' element={
           isAuthenticated ? <Favourites/> : <Login/>
+        }></Route>
+
+        <Route path='/user/:id' element={
+          isAuthenticated ? <SearchProfile/> : <Login/>
         }></Route>
       </Routes>
       <ToastContainer autoClose={2000}/>
