@@ -360,8 +360,12 @@ const userController = {
     },
     getAllUser : async (req, res) => {
         try {
-
-            const users = await userSchema.find();
+            const users = await userSchema.find({
+                name : {
+                    $regex : req.query.name,
+                    $options : "i"
+                }
+            });
 
             return res.status(200).json({
                 success :  true,
@@ -408,7 +412,9 @@ const userController = {
             let blogs = []
             for(var i=0; i<user.blogs.length; i++){
                 const getBlog = await blogSchema.findById(user.blogs[i]).populate("likes comments.user owner");
-                blogs.push(getBlog);
+                if(getBlog){
+                    blogs.push(getBlog);
+                }
             }
 
             return res.status(200).json({

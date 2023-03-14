@@ -60,7 +60,7 @@ const SearchProfile = () => {
         <Col span={22}>
         <Row justify={"center"} align="middle" dir='column' gutter={[0, 10]} >
           <Col span={24} className="text-center">
-              <Avatar size={200} src={user.avatar.url}></Avatar>
+              <Avatar style={{border : "2px solid #1890ff"}}  size={200} src={user.avatar.url}></Avatar>
           </Col>
           <Col>
             <Typography.Title className='poppins text-center' level={3}>{user.name}</Typography.Title>

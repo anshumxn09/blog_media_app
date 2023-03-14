@@ -1,12 +1,12 @@
 import { Row, Typography } from 'antd';
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import {useSelector } from 'react-redux'
 import BlogCard from './BlogCard/BlogCard';
 
 const PostSection = () => {
     const {blogs} = useSelector(state => state.myBlogs);
 
-  return (
+  return blogs && (
     <div className="flex-col" style={{paddingTop : "20px", marginBottom : "10px"}}>
         {
             blogs && blogs.length > 0 ? (

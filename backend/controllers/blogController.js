@@ -96,6 +96,8 @@ const blogController = {
                 blog.description = description;
             }
 
+            console.log("Anshuman");
+
             await blog.save();
 
             return res.status(200).json({
@@ -183,7 +185,7 @@ const blogController = {
         try {
             
             const {id} = req.params;
-            await blogSchema.findByIdAndRemove(id);
+            await blogSchema.findByIdAndDelete(id);
 
             return res.status(200).json({
                 success :  true,

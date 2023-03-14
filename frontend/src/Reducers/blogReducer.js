@@ -15,6 +15,25 @@ export const getAllBlogs = createReducer({}, {
     },
 })
 
+export const singleBlog = createReducer({}, {
+    SINGLE_BLOGS_REQUEST : (state) => {
+        state.loading = true;
+    },
+    SINGLE_BLOGS_SUCCESS : (state, action) => {
+        state.loading = false;
+        state.blog = action.payload;
+        state.error = false;
+    },
+    SINGLE_BLOGS_FAILURE : (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    },
+
+    CLEAR_BLOG : (state) => {
+        state.blog = null;
+    }
+})
+
 export const myBlogs = createReducer({}, {
     GET_MY_BLOGS_REQUEST : (state) => {
         state.loading = true;
@@ -114,6 +133,43 @@ export const likeReducer = createReducer({}, {
         state.loading = false;
         state.message = action.payload;
     },
+
+    CREATE_BLOG_REQUEST : (state) => {
+        state.loading = true;
+    },
+    CREATE_BLOG_SUCCESS : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+    CREATE_BLOG_FAILURE : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+
+    EDIT_BLOG_REQUEST : (state) => {
+        state.loading = true;
+    },
+    EDIT_BLOG_SUCCESS : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+    EDIT_BLOG_FAILURE : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+
+    DELETE_BLOG_REQUEST : (state) => {
+        state.loading = true;
+    },
+    DELETE_BLOG_SUCCESS : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+    DELETE_BLOG_FAILURE : (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+    },
+
 
     CLEAR_MESSAGE : (state, action) => {
         state.message = null;

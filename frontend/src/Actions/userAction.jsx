@@ -78,11 +78,11 @@ export const followUnfollow = (id)  => async (dispatch) => {
     }
 }
 
-export const getAllUser = ()  => async (dispatch) => {
+export const getAllUser = (search="")  => async (dispatch) => {
     try {
         dispatch({type : "ALL_USER_REQUEST"})
 
-        const {data} = await axios.get("/api/users");
+        const {data} = await axios.get(`/api/users?name=${search}`);
 
         dispatch({type : "ALL_USER_SUCCESS", payload : data.users})
     } catch (error) {

@@ -99,3 +99,68 @@ export const getAllFavourite = () => async (dispatch) => {
     }
 }
 
+export const createBlog = (title, description) => async (dispatch) => {
+    try {
+        dispatch({type : "CREATE_BLOG_REQUEST"})
+
+        const {data} = await axios.post(`/api/create`, {
+            title, description
+        }, {
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            withCredentials : true,
+        });
+
+        dispatch({type : "CREATE_BLOG_SUCCESS", payload : data.message})
+
+    } catch (error) {
+        dispatch({type : "CREATE_BLOG_FAILURE", payload : error.response.data.message})
+    }
+}
+
+export const editBlog = (id, title, description) => async (dispatch) => {
+    try {
+        dispatch({type : "EDIT_BLOG_REQUEST"})
+
+        const {data} = await axios.put(`/api/blog/${id}`, {
+            title, description
+        }, {
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            withCredentials : true,
+        });
+
+        dispatch({type : "EDIT_BLOG_SUCCESS", payload : data.message})
+
+    } catch (error) {
+        dispatch({type : "EDIT_BLOG_FAILURE", payload : error.response.data.message})
+    }
+}
+
+export const deleteBlog = (id) => async (dispatch) => {
+    try {
+        dispatch({type : "EDIT_BLOG_REQUEST"})
+
+        const {data} = await axios.delete(`/api/blog/${id}`);
+
+        dispatch({type : "EDIT_BLOG_SUCCESS", payload : data.message})
+
+    } catch (error) {
+        dispatch({type : "EDIT_BLOG_FAILURE", payload : error.response.data.message})
+    }
+}
+
+export const getASingleBlog = (id) => async (dispatch) => {
+    try {
+        dispatch({type : "SINGLE_BLOGS_REQUEST"})
+
+        const {data} = await axios.get(`/api/blog/${id}`);
+
+        dispatch({type : "SINGLE_BLOGS_SUCCESS", payload : data.blog})
+
+    } catch (error) {
+        dispatch({type : "SINGLE_BLOGS_FAILURE", payload : error.response.data.message})
+    }
+}

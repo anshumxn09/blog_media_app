@@ -3,10 +3,11 @@ import { Button, Card, Dropdown, Form, Input, Modal, Typography } from "antd";
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToFavourite, commentBlog, getAllBlogs, getAllFavourite, getMyBlogs, likeBlog } from "../../Actions/blogActions";
+import { addToFavourite, commentBlog, deleteBlog, getAllBlogs, getAllFavourite, getMyBlogs, likeBlog } from "../../Actions/blogActions";
 import { loadSearchUser, loadUser } from "../../Actions/userAction";
 import "../../styles/BlogCard.css";
 import CommentCard from "../CommentCard/CommentCard";
+import EditBlog from "../Edit Blog/EditBlog";
 import UserProfile from "../UserProfile/UserProfile";
 
 const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=false, myProfile=false, searchUser="" }) => {
@@ -64,7 +65,7 @@ const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=f
         if(searchUser){
             await dispatch(loadSearchUser(searchUser));
         }
-        
+
         if(favPage){
             await dispatch(getAllBlogs());
             dispatch(getAllFavourite());
@@ -95,12 +96,19 @@ const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=f
         setLikeOpen(false);
     };
 
+
+    const handleDeletion = async () => {
+        await dispatch(deleteBlog(blogId));
+        await dispatch(loadUser());
+        dispatch(getMyBlogs());
+    }
+
     const items = [{
         key : 1,
-        label : <Button style={{border : "none"}}> <EditFilled/> Edit</Button>
+        label : <Link to={`/edit/${blogId}`}> <Button style={{border : "none"}}> <EditFilled/> Edit</Button> </Link>
     },{
         key : 2,
-        label : <Button style={{border : "none"}}> <DeleteOutlined/> Delete</Button>
+        label : <Button onClick={handleDeletion} style={{border : "none"}}> <DeleteOutlined/> Delete</Button>
     }
 ]
     useEffect(() => {

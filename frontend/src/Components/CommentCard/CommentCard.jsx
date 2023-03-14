@@ -3,7 +3,7 @@ import { Button, Dropdown } from 'antd';
 import Typography from 'antd/es/typography/Typography';
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { deleteComment, getAllBlogs } from '../../Actions/blogActions';
+import { deleteComment, getAllBlogs, getAllFavourite, getMyBlogs } from '../../Actions/blogActions';
 import './../../styles/CommentCard.css';
 
 const CommentCard = ({imageUrl, name, comment, isUser, blogID}) => {
@@ -11,8 +11,11 @@ const CommentCard = ({imageUrl, name, comment, isUser, blogID}) => {
 
     const deleteCommentHandler = async () =>{
         await dispatch(deleteComment(blogID));
+        await dispatch(getAllFavourite());
+        await dispatch(getMyBlogs());
         dispatch(getAllBlogs());
     }
+    
     const items = [
         {key : 1, label : (
             <Typography.Text onClick={deleteCommentHandler}> <DeleteFilled/> Delete</Typography.Text>

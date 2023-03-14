@@ -14,6 +14,7 @@ import Profile from './Components/Profile';
 import Header from './Components/Header';
 import Favourites from './Components/Favourites';
 import SearchProfile from './Components/UserProfile/SearchProfile';
+import EditBlog from './Components/Edit Blog/EditBlog';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -54,6 +55,10 @@ const App = () => {
 
         <Route path='/user/:id' element={
           isAuthenticated ? <SearchProfile/> : <Login/>
+        }></Route>
+
+        <Route path='/edit/:id' element={
+          isAuthenticated ? <EditBlog/> : <Login/>
         }></Route>
       </Routes>
       <ToastContainer autoClose={2000}/>
