@@ -20,3 +20,20 @@
     overflow-y: scroll;
     background-color: #1890ff;
 }
+
+.horizontalView{
+    display: none;
+    overflow-x: auto;
+}
+
+@media screen and (max-width: 403px) {
+    .horizontalView{
+        display: flex;
+    }
+    .left{
+        display: none;
+    }
+    .right{
+        width: 100%;
+    }
+}

@@ -25,8 +25,8 @@ const Search = () => {
 
   return (
     <Row className='h-100 gradient-blue' justify={"center"} style={{paddingTop : "20px"}}>
-      <Col lg={{span : 8}} md={{span : 10}} sm={{span : 12}} xs={{span : 20}} >
-        <div className="search-block flex-col" style={{background : "white", borderRadius : "20px"}}>
+      <Col lg={{span : 16}} md={{span : 10}} sm={{span : 12}} xs={{span : 20}} >
+        <div className="search-block flex-col" style={{background : "white", borderRadius : "20px", padding : "30px"}}>
         <Input.Search onSearch={getResult} placeholder="enter your search here..." size="large" allowClear onChange={handleInput}></Input.Search>
 
         <div style={{marginTop : "20px", display : "flex", justifyContent : "center", alignItems : "center", flexDirection : "column", width : "100%", borderRadius : "20px"}}>
