@@ -29,7 +29,7 @@ const Home = () => {
     }
 }, [dispatch, message, toast])
 
-  return !users && !blogs ? (
+  return users && blogs ? (
     <>
     <div className="horizontalView">
         {

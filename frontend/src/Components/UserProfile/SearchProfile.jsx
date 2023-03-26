@@ -55,7 +55,7 @@ const SearchProfile = () => {
         }
     }, [dispatch, message, toast])
 
-  return user && (
+  return user && blogs && (
     <Row className="h-100" justify={"center"} style={{padding : "20px"}}>
         <Col span={22}>
         <Row justify={"center"} align="middle" dir='column' gutter={[0, 10]} >
@@ -105,7 +105,7 @@ const SearchProfile = () => {
         {
             blogs && blogs.length > 0 ? (
                 blogs.map((elem) => {
-                    return  <BlogCard key={elem._id} owner={elem.owner} blogId={elem._id} title={elem.title} description={elem.description} likes={elem.likes} comments={elem.comments} searchUser={id} />
+                    return  elem && <BlogCard key={elem._id} owner={elem.owner} blogId={elem._id} title={elem.title} description={elem.description} likes={elem.likes} comments={elem.comments} searchUser={id} />
                 })
             ) : <Typography.Title className='poppins uppercase text-center' level={3} >No Blogs Uploaded</Typography.Title>
         }
