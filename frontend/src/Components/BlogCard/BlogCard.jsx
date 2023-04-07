@@ -127,7 +127,7 @@ const BlogCard = ({description, title, blogId, likes, comments, owner, favPage=f
     }, [likes, setLikeToggle, user, setStarToggle])
 
   return (
-    <Card className="card">
+    <Card className="card" data-aos="flip-down">
       <Link style={{display : 'flex', justifyItems : "space-between", alignItems : "center"}}>
         <div className="topHeaderBlog">
             <img

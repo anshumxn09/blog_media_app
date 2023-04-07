@@ -23,7 +23,7 @@ const Login = () => {
         dispatch({type : "CLEAR_MESSAGE"});
     } , [dispatch, loginMessage])
   return (
-    <Row className='h-100' justify={"center"} align={"middle"}>
+    <Row className='h-100 curvyWall' justify={"center"} align={"middle"}>
     <div className="footer" style={{
         position : "absolute",
         bottom : "5px",
@@ -33,7 +33,7 @@ const Login = () => {
         <Typography.Text type='secondary' className='text-center'>&copy; Anshuman Sharma 2023</Typography.Text>
     </div>
     <Col lg={{span : 8}} md={{span : 10}} sm={{span : 12}} xs={{span : 20}}>
-        <Card style={{border : "2px solid #1890ff"}}>
+        <Card data-aos="zoom-in"  style={{border : "2px solid #1890ff"}}>
             <Form layout='vertical' onFinish={loginHandler}>
                 <div className='text-center'>
                 <img src="https://i.pinimg.com/originals/c6/65/dd/c665dd90922ac404225ac0764878e50d.png" alt="LOGO" width={90} height={90}/>

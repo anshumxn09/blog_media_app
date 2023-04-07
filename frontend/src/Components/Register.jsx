@@ -36,9 +36,9 @@ const Register = () => {
     }, [message, dispatch, toast])
 
   return (
-    <Row className='h-100 gradient-blue' justify="center" align="middle">
+    <Row style={{overflowX : "none"}} className='h-100 curvyWall' justify="center" align="middle">
         <Col lg={{span : 8}} md={{span : 10}} sm={{span : 12}} xs={{span : 20}}>
-            <Card style={{border : "2px solid #1890ff"}}>
+            <Card  data-aos="zoom-in" style={{border : "2px solid #1890ff"}}>
             <Form layout='vertical' onFinish={handleRegister}>
 
                 <div className="flexCenter">

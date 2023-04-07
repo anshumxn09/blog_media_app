@@ -15,6 +15,7 @@
 }
 
 .right{
+    position: relative;
     width: 75%;
     height: 100%;
     overflow-y: scroll;

@@ -8,6 +8,7 @@ import UserProfile from './UserProfile/UserProfile';
 import {toast} from 'react-toastify';
 import { Typography } from 'antd';
 import Loader from './Loader';
+import NoBlogs from './BlogCard/NoBlogs';
 
 const Home = () => { 
   const dispatch = useDispatch();
@@ -48,9 +49,9 @@ const Home = () => {
       </div>
       <div className="right flex-col">
         {
-          blogs ? blogs.map((elem) => {
+          blogs && blogs.length > 0 ? blogs.map((elem) => {
             return <BlogCard key={elem._id} owner={elem.owner} blogId={elem._id} title={elem.title} description={elem.description} likes={elem.likes} comments={elem.comments} />
-          }) : <Typography.Title className='uppercase text-center poppins'  style={{color : "white"}}  level={3} >No Blogs Available</Typography.Title>
+          }) : <NoBlogs/>
         }
       </div>  
     </div>

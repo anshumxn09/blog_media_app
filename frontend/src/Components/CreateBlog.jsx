@@ -25,9 +25,9 @@ const CreateBlog = () => {
   }, [dispatch, message, toast])
 
   return (
-    <Row className='h-100 gradient-blue' justify={"center"} align={"middle"}>
+    <Row className='h-90 gradient-blue' justify={"center"} align={"middle"}>
         <Col lg={{span : 8}} md={{span : 10}} sm={{span : 12}} xs={{span : 20}}>
-            <Card style={{border : "2px solid #1890ff"}} >
+            <Card  data-aos="zoom-in" style={{border : "2px solid #1890ff"}} >
                 <Form layout='vertical' onFinish={handleCreate}>
                     <Form.Item label="Title: " name="title" rules={[{
                         required : true,

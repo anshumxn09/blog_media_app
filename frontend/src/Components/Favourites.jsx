@@ -22,7 +22,7 @@ const Favourites = () => {
     }, [dispatch, message, toast])
     
   return favs  && favs.length > 0 ? (
-    <div className="flex-col" style={{background : "#1890ff", height : "90vh", overflowY : "auto"}}>
+    <div className="flex-col gradient-blue" style={{height : "90vh", overflowY : "auto"}}>
         {
             favs.map((elem) => {
                 return <BlogCard key={elem._id} owner={elem.owner} blogId={elem._id} title={elem.title} description={elem.description} likes={elem.likes} comments={elem.comments} favPage={true} />

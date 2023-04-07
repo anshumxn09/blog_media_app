@@ -46,8 +46,30 @@
   background : "#1890ff"
 }
 
+.h-90{
+  height: 90vh;
+}
+
 .gradient-blue{
   background-image: linear-gradient(to bottom right, #1890ff, lightblue, white);
+}
+
+.curvyWall{
+  overflow: hidden;
+  position: relative;
+}
+
+.curvyWall::before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: url("https://data.whicdn.com/images/281353363/original.gif");
+  transform: scaleX(2) translateY(-200px);
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  overflow-x: hidden;
 }
 
 .circleit{
