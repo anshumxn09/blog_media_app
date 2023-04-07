@@ -66,7 +66,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: url("https://data.whicdn.com/images/281353363/original.gif");
+  background : linear-gradient(#1890ff, white);
   transform: scaleX(2) translateY(-200px);
   border-radius: 0 0 50% 50% / 0 0 100% 100%;
   overflow-x: hidden;
