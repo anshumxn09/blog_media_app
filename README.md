@@ -1,7 +1,7 @@
 # Blog Media Application
 ## _MERN PROJECT_
 
-"Blog Media" is a social media application where a user can create their profile and post there blogs. Users can follow and unfollow each other, like and comment on each other's blog and can also save blogs in their favourite section.
+Blog Media is a social media application where a user can create their profile and post there blogs. Users can follow and unfollow each other, like and comment on each other's blog and can also save blogs in their favourite section.
 
 # Tech Stack
 > Frontend : React, Redux Toolkit(state management), Ant Design
