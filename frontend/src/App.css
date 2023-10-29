@@ -7,6 +7,19 @@
   font-family: 'Poppins', sans-serif;
 }
 
+::-webkit-scrollbar { 
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: whitesmoke;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1890ff;
+  border-radius: 10px;
+}
+
 .poppins{
   font-family: "Poppins";
 }
